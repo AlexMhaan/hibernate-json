@@ -1,15 +1,11 @@
 package dao;
 
+
 import entities.Employee;
 import jakarta.persistence.PersistenceException;
-import jakarta.persistence.criteria.*;
-
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 import util.HibernateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO{
