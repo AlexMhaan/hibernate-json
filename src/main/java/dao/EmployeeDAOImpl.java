@@ -81,4 +81,32 @@ public class EmployeeDAOImpl implements EmployeeDAO{
         }
         return true;
     }
+
+    @Override
+    public void saveEmployees(List<Employee> employees) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+
+            session.beginTransaction();
+            for (Employee employee : employees)
+                session.persist(employee);
+            session.getTransaction().commit();
+
+        }catch (RuntimeException e){
+
+//            e.printStackTrace();
+            if(session.getTransaction() != null && session.getTransaction().isActive())
+                session.getTransaction().rollback();
+//            throw e;
+
+        }finally {
+
+            if(session != null)
+                session.close();
+
+        }
+
+    }
 }

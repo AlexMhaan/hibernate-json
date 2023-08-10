@@ -16,4 +16,6 @@ public interface EmployeeDAO {
 
     boolean deleteById(Long id);
 
+    void saveEmployees(List<Employee> employees);
+
 }

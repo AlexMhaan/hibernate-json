@@ -10,13 +10,16 @@ import java.util.Map;
 public class Employee implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "employee_sequence")
+    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", allocationSize = 100)
     private Long id;
 
-    @Column(name = "first_name", length = 35, nullable = false)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(unique=true)
+    @Column(name = "last_name")
+    private String lastName;
+
     private String email;
 
     @Convert(converter = JsonConverter.class)
@@ -27,11 +30,13 @@ public class Employee implements Serializable {
     public Employee(
             Long id,
             String firstName,
+            String lastName,
             String email,
             Map<String, Object> json
     ) {
         this.id = id;
         this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.json = json;
     }
@@ -50,6 +55,14 @@ public class Employee implements Serializable {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -73,6 +86,7 @@ public class Employee implements Serializable {
         return "Employee{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", json=" + json + '\n' +
                 '}';
